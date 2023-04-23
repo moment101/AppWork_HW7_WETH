@@ -64,7 +64,6 @@ contract WETH9 is IERC20, IWETH9 {
     function withdraw(uint wad) public {
         require(balanceOf[msg.sender] >= wad, "balance < amount");
         balanceOf[msg.sender] -= wad;
-        // msg.sender.transfer(wad);
         (bool success, ) = msg.sender.call{value: wad}("");
         require(success, "withdraw failed");
         emit Withdrawal(msg.sender, wad);
